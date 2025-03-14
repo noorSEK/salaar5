@@ -149,9 +149,9 @@ cat subdomains.txt | httpx -silent -o live-subdomains.txt
 # Domain Vulnerability Scanning
 echo "[+] Running Nuclei on live subdomains..."
 rm /root/nuclei-templates/ssl
-cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity low  -silent -o nuclei-low.txt
-cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity medium -silent -o nuclei-medium.txt
-cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity unknown  -silent -o nuclei-unknown.txt
+#cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity low  -silent -o nuclei-low.txt
+#cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity medium -silent -o nuclei-medium.txt
+#cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity unknown  -silent -o nuclei-unknown.txt
 cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity high  -silent -o nuclei-high.txt
 cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity critical -silent -o nuclei-critical.txt
 # Merge Nuclei results
