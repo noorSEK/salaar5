@@ -70,8 +70,22 @@ echo "[+] Enumerating subdomains using chaos ...."
 cat bug_bounty_domains.txt | chaos -silent -key 6aa57816-004b-429c-a02b-d1344c1abeb7 >> subs-temp.txt
 
 echo "[+] Clearing Duplicate subdomains ...."
-cat subs-temp.txt | sort -u | shuf | tee subdomains.txt
+cat subs-temp.txt | sort -u | shuf | tee 1.txt
 rm subs-temp.txt
+
+
+
+cat 1.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 2.txt
+rm 1.txt
+cat 2.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 3.txt
+rm 2.txt
+cat 3.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 4.txt
+rm 3.txt
+cat 4.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 5.txt
+rm 4.txt
+cat 5.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 6.txt
+rm 5.txt
+cat 6.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > subdomains.txt
 
 echo "[+] Running httpx ...."
 cat subdomains.txt | httpx -silent -o iqoo.txt #live-subdomains.txt
