@@ -88,41 +88,57 @@ rm 5.txt
 cat 6.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > subdomains.txt
 
 echo "[+] Running httpx ...."
-cat subdomains.txt | httpx -silent -o iqoo.txt #live-subdomains.txt
+cat subdomains.txt | httpx -threads 500 -timeout 2 -silent -o iqoo.txt #live-subdomains.txt
 
 
 echo "[+] Shuffling......"
 cat iqoo.txt | shuf | shuf | shuf | shuf | shuf | shuf > 1.txt
 rm iqoo.txt
+sleep(1)
 cat 1.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 2.txt
 rm 1.txt
+sleep(1)
 cat 2.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 3.txt
 rm 2.txt
+sleep(1)
 cat 3.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 4.txt
 rm 3.txt
+sleep(1)
 cat 4.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 5.txt
 rm 4.txt
+sleep(1)
 cat 5.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 6.txt
 rm 5.txt
+sleep(1)
 cat 6.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 7.txt
 rm 6.txt
+sleep(1)
 cat 7.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 8.txt
 rm 7.txt
+sleep(1)
 cat 8.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 9.txt
 rm 8.txt
+sleep(1)
 cat 9.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 10.txt
 rm 9.txt
+sleep(1)
 cat 10.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 11.txt
 rm 10.txt
+sleep(1)
 cat 11.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 12.txt
 rm 11.txt
+sleep(1)
 cat 12.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 13.txt
 rm 12.txt
+sleep(1)
 cat 13.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 14.txt
 rm 13.txt
+sleep(1)
 cat 14.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > 15.txt
 rm 14.txt
+sleep(1)
 cat 15.txt | shuf | shuf | shuf | shuf | shuf | shuf | shuf > live-subdomains.txt
+sleep(1)
 # Crawl URLs and extract data
 #echo "[+] Running katana ...."
 #cat live-subdomains.txt | katana -o /opt/katana-urls.txt
@@ -197,15 +213,20 @@ nuclei
 # Domain Vulnerability Scanning
 echo "[+] Running Nuclei on live subdomains..."
 rm /root/nuclei-templates/ssl
+sleep(1)
 cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity low  -silent -c 400 -rate-limit 500 -retries 1 -timeout 2 -o nuclei-low.txt
+sleep(1)
 cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity medium -silent -c 400 -rate-limit 500 -retries 1 -timeout 2 -o nuclei-medium.txt
+sleep(1)
 cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity unknown  -silent -c 400 -rate-limit 500 -retries 1 -timeout 2 -o nuclei-unknown.txt
+sleep(1)
 cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity high  -silent -c 400 -rate-limit 500 -retries 1 -timeout 2 -o nuclei-high.txt
+sleep(1)
 cat live-subdomains.txt | shuf | nuclei -t /root/nuclei-templates/ -severity critical -silent -c 400 -rate-limit 500 -retries 1 -timeout 2 -o nuclei-critical.txt
 # Merge Nuclei results
-cat nuclei-*.txt | sort -u >> nuclei-results.txt
+cat nuclei-*.txt | sort -u >> nucleii-results.txt
 rm nuclei-*.txt
-cat nuclei-results.txt | notify --bulk
+cat nucleii-results.txt | notify --bulk
 
 #echo "[+] Fuzzing for SSTI..."
 #cat params.txt | grep -E "template=|preview=|id=|view=|activity=|name=|content=|redirect=" \
@@ -223,5 +244,5 @@ cat nuclei-results.txt | notify --bulk
 #mkdir sqlmap-results
 #cat params.txt | grep -Ei 'select|report|role|update|query|user|name|sort|where|search|params|process|row|view|table|from|sel|results|sleep|fetch|order|keyword|column|field|delete|string|number|filter' | python3 /opt/sqlmap/sqlmap.py --batch --banner  --output-dir=sqlmap-results/
 
-cat nuclei-results.txt | wc -l
+cat nucleii-results.txt | wc -l
 echo "Done....."
